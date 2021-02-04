@@ -1,0 +1,13 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AllowBillingWrite",
+      "Effect": "Allow",
+      "Action": [
+        "aws-portal:ModifyPaymentMethods"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
