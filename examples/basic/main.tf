@@ -7,11 +7,24 @@ provider "aws" {
 }
 
 ###########################################################################
+## Default tags for all permission sets
+###########################################################################
+locals {
+  default_tags = {
+    "BusinessUnit" = "Core"
+    "Environment"  = "Production"
+    "ManagedBy"    = "Terraform"
+    "Owner"        = "SRE"
+    "App"          = "AWS SSO"
+  }
+}
+
+###########################################################################
 ## Permission Sets and Assignments
 ###########################################################################
 module "EngineeringPowerUser" {
   source = "../"
-
+  tags = local.default_tags
   inline_policy              = file("permission-sets/EngineeringPowerUser.json")
   permission_set_name        = "EngineeringPowerUser"
   permission_set_description = "12 hour Power User Access"
@@ -28,7 +41,14 @@ module "EngineeringPowerUser" {
 
 module "SuperAdmin1Hour" {
   source = "../"
-
+  ## an example of merging your default tags with some additional tags
+  tags = merge(
+    local.default_tags,
+    {
+      Zendesk   = "ticketNumberHere"
+      "Created" = "2021-02-03"
+    },
+  )
   managed_policies = [
     "arn:aws:iam::aws:policy/AdministratorAccess",
     "arn:aws:iam::aws:policy/AWSBillingReadOnlyAccess"
@@ -46,7 +66,7 @@ module "SuperAdmin1Hour" {
 
 module "InlineAndManaged" {
   source = "../"
-
+  tags = local.default_tags
   inline_policy = file("permission-sets/inline.json")
   managed_policies = [
     "arn:aws:iam::aws:policy/AWSBillingReadOnlyAccess"
@@ -65,7 +85,7 @@ module "InlineAndManaged" {
 
 module "SingleUser" {
   source = "../"
-
+  tags = local.default_tags
   inline_policy = file("permission-sets/inline.json")
   managed_policies = [
     "arn:aws:iam::aws:policy/AWSBillingReadOnlyAccess"
@@ -84,7 +104,7 @@ module "SingleUser" {
 
 module "UserAndGroup" {
   source = "../"
-
+  tags = local.default_tags
   managed_policies = [
     "arn:aws:iam::aws:policy/AWSBillingReadOnlyAccess"
   ]

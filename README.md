@@ -6,6 +6,7 @@ Included features:
 - Creation of permission sets
 - Attaching inline and managed policies to permission sets
 - Assign users/groups to permission sets
+- Tagging of permission sets
 
 ## Usage
 **IMPORTANT:** The `master` branch is used in source just as an example. In your code, do not pin to master because there may be breaking changes between releases. Instead pin to the release tag (e.g. `?ref=tags/x.y.z`).
@@ -16,7 +17,10 @@ Include this repository as a module in your existing terraform code. **Additiona
 ```hcl
 module "SuperAdmin1Hour" {
   source = "git::https://github.com/glg-public/terraform-aws-single-sign-on.git?ref=master"
-
+  tags = {
+    "BusinessUnit" = "Core"
+    "ManagedBy"    = "Terraform"
+  }
   managed_policies = [
     "arn:aws:iam::aws:policy/AdministratorAccess",
     "arn:aws:iam::aws:policy/AWSBillingReadOnlyAccess"
@@ -37,7 +41,10 @@ module "SuperAdmin1Hour" {
 ```hcl
 module "SingleUser" {
   source = "git::https://github.com/glg-public/terraform-aws-single-sign-on.git?ref=master"
-
+  tags = {
+    "BusinessUnit" = "Core"
+    "ManagedBy"    = "Terraform"
+  }
   inline_policy = file("permission-sets/inline.json")
   managed_policies = [
     "arn:aws:iam::aws:policy/AWSBillingReadOnlyAccess"

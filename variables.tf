@@ -41,3 +41,9 @@ variable "account_ids" {
   type        = list(string)
   description = "An AWS account identifier, typically a 10-12 digit string."
 }
+
+variable "tags" {
+  default     = {}
+  description = "Resource tags"
+  type        = map(string)
+}
