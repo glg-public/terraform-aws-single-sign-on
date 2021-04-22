@@ -47,3 +47,9 @@ variable "tags" {
   description = "Resource tags"
   type        = map(string)
 }
+
+variable "relay_state" {
+  type        = string
+  description = "The relay state URL used to redirect users within the application during the federation authentication process."
+  default     = null
+}
