@@ -26,10 +26,10 @@ locals {
 data "aws_ssoadmin_instances" "organization_management_account" {}
 
 resource "aws_ssoadmin_permission_set" "default" {
-  name         = var.permission_set_name
-  description  = var.permission_set_description
-  instance_arn = tolist(data.aws_ssoadmin_instances.organization_management_account.arns)[0]
-  # relay_state =
+  name             = var.permission_set_name
+  description      = var.permission_set_description
+  instance_arn     = tolist(data.aws_ssoadmin_instances.organization_management_account.arns)[0]
+  relay_state      = var.relay_state
   session_duration = var.session_duration
   tags             = module.label.tags
 }

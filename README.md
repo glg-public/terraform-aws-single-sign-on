@@ -9,7 +9,7 @@ Included features:
 - Tagging of permission sets
 
 ## Usage
-**IMPORTANT:** The `master` branch is used in source just as an example. In your code, do not pin to master because there may be breaking changes between releases. Instead pin to the release tag (e.g. `?ref=tags/x.y.z`).
+**IMPORTANT:** The `main` branch is used in source just as an example. In your code, do not pin to master because there may be breaking changes between releases. Instead pin to the release tag (e.g. `?ref=tags/x.y.z`).
 
 Include this repository as a module in your existing terraform code. **Additional examples** can be found in the [examples directory](./examples/)
 
