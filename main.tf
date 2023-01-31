@@ -31,7 +31,7 @@ resource "aws_ssoadmin_permission_set" "default" {
   instance_arn     = tolist(data.aws_ssoadmin_instances.organization_management_account.arns)[0]
   relay_state      = var.relay_state
   session_duration = var.session_duration
-  tags             = module.label.tags
+  tags             = var.tags
 }
 
 resource "aws_ssoadmin_permission_set_inline_policy" "default" {
@@ -90,9 +90,4 @@ resource "aws_ssoadmin_account_assignment" "user" {
   principal_type     = "USER"
   target_id          = each.value.account_ids
   target_type        = "AWS_ACCOUNT"
-}
-
-module "label" {
-  source = "git::https://github.com/glg-public/terraform-null-label.git?ref=tags/0.17.0"
-  tags   = var.tags
 }
